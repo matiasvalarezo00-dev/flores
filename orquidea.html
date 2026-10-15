@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Orquídea | Jardín en Flor</title>
+  <style>
+    :root {
+      --fondo: #fbf7fb;
+      --blanco: #fffefe;
+      --texto: #44334a;
+      --suave: #766779;
+      --morado: #87649b;
+      --morado-oscuro: #704d83;
+      --rosa: #f6e5ee;
+      --lila: #f0e8f5;
+      --borde: #eaddeb;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 22px;
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+    .pagina { width: min(1080px, 100%); margin: 0 auto; }
+    .encabezado {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 20px;
+      padding: 25px 28px;
+      border: 1px solid var(--borde);
+      background: linear-gradient(110deg, var(--lila), var(--rosa));
+    }
+    .encabezado small {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--morado);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .encabezado h1 {
+      margin: 0;
+      color: var(--morado-oscuro);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 500;
+      line-height: 1.1;
+    }
+    .encabezado p { max-width: 620px; margin: 9px 0 0; color: #66576b; }
+    .numero {
+      display: grid;
+      width: 70px;
+      height: 70px;
+      flex: 0 0 70px;
+      place-items: center;
+      border: 1px solid #d8bfdf;
+      background: rgb(255 254 254 / 45%);
+      color: var(--morado-oscuro);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.8rem;
+    }
+    .contenido {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(270px, .9fr);
+      gap: 20px;
+      align-items: start;
+    }
+    .texto, .panel { border: 1px solid var(--borde); background: var(--blanco); }
+    .titulo-seccion {
+      margin: 0;
+      padding: 15px 19px;
+      border-bottom: 1px solid #e7d6e7;
+      background: var(--rosa);
+      color: #754b70;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+    .texto-contenido { padding: 22px; }
+    .introduccion {
+      margin-bottom: 20px;
+      padding: 16px 18px;
+      border-left: 4px solid #b997d2;
+      background: var(--lila);
+      color: #674b78;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    .texto-contenido p { margin: 0 0 16px; font-size: .97rem; line-height: 1.8; }
+    .texto-contenido p:last-child { margin-bottom: 0; }
+    a { color: var(--morado-oscuro); }
+    a:focus-visible { outline: 3px solid #d3b4df; outline-offset: 3px; }
+    .panel { padding: 12px; }
+    .nombre-cientifico {
+      margin: 0;
+      padding: 12px;
+      border: 1px solid #decbe7;
+      background: var(--lila);
+      color: var(--morado-oscuro);
+      text-align: center;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+    .foto {
+      display: block;
+      width: 100%;
+      height: 300px;
+      margin-top: 12px;
+      border: 1px solid var(--borde);
+      background: linear-gradient(135deg, var(--lila), var(--rosa));
+      object-fit: cover;
+    }
+    .descripcion { margin: 8px 0 13px; color: var(--suave); text-align: center; font-size: .85rem; }
+    .clasificacion {
+      padding: 12px;
+      border: 1px solid #decbe7;
+      background: var(--lila);
+      color: var(--morado-oscuro);
+      font-size: .95rem;
+      font-weight: 700;
+    }
+    .dato {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 10px;
+      padding: 11px 10px;
+      border: 1px solid #eee0ed;
+      border-top: 0;
+      font-size: .9rem;
+    }
+    .dato strong { color: #79527d; }
+    .dato span { text-align: right; overflow-wrap: anywhere; }
+    .volver-contenedor {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 20px;
+      padding: 15px 18px;
+      border: 1px solid var(--borde);
+      background: linear-gradient(110deg, var(--lila), var(--rosa));
+    }
+    .volver-contenedor p { margin: 0; color: #6f5b78; font-size: .9rem; }
+    .volver {
+      display: inline-block;
+      padding: 10px 16px;
+      border: 1px solid var(--morado);
+      background: var(--morado);
+      color: white;
+      font-size: .9rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .volver:hover { background: var(--morado-oscuro); }
+    footer {
+      margin-top: 20px;
+      padding: 14px;
+      border: 1px solid var(--borde);
+      background: var(--rosa);
+      color: var(--morado-oscuro);
+      text-align: center;
+      font-size: .85rem;
+    }
+    @media (max-width: 750px) {
+      body { padding: 14px; }
+      .contenido { grid-template-columns: 1fr; }
+      .foto { height: 280px; }
+    }
+    @media (max-width: 480px) {
+      body { padding: 10px; }
+      .encabezado { padding: 19px; }
+      .numero { width: 54px; height: 54px; flex-basis: 54px; font-size: 1.4rem; }
+      .texto-contenido { padding: 16px; }
+      .volver-contenedor { align-items: stretch; flex-direction: column; }
+      .volver { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="pagina">
+    <header class="encabezado">
+      <div>
+        <small>Jardín en Flor · Colección botánica</small>
+        <h1>La Orquídea</h1>
+        <p>Una familia diversa de plantas con flores de formas y colores sorprendentes.</p>
+      </div>
+      <div class="numero" aria-label="Flor número ocho">08</div>
+    </header>
+
+    <main class="contenido">
+      <section class="texto" aria-labelledby="titulo-descripcion">
+        <h2 class="titulo-seccion" id="titulo-descripcion">Descripción y características</h2>
+        <div class="texto-contenido">
+          <div class="introduccion">
+            Las orquídeas forman una de las familias de plantas con flores más diversas.
+          </div>
+          <p>Las orquídeas pertenecen a la familia Orchidaceae. Incluyen numerosos géneros y especies que crecen en distintos ambientes del mundo.</p>
+          <p>Sus flores presentan formas y colores variados. Algunas especies crecen sobre otras plantas sin parasitarlas, mientras que otras se desarrollan en el suelo.</p>
+          <p>Muchas orquídeas se cultivan como plantas ornamentales. Para cuidarlas, es importante conocer las necesidades de la especie, especialmente en cuanto a luz, humedad y riego.</p>
+          <p>Para conocer más detalles, visita <a href="https://es.wikipedia.org/wiki/Orchidaceae" target="_blank" rel="noopener noreferrer">más información sobre Orquídea</a>.</p>
+        </div>
+      </section>
+
+      <aside class="panel" aria-label="Datos de la orquídea">
+        <h2 class="nombre-cientifico">Orchidaceae</h2>
+        <img class="foto" src="orquidea.jpg" alt="Fotografía de una orquídea">
+        <p class="descripcion">Orquídea · Planta ornamental</p>
+        <div class="clasificacion">Clasificación científica</div>
+        <div class="dato"><strong>Reino</strong><span>Plantae</span></div>
+        <div class="dato"><strong>Familia</strong><span>Orchidaceae</span></div>
+        <div class="dato"><strong>Género</strong><span>Varios géneros</span></div>
+        <div class="dato"><strong>Especie</strong><span>Numerosas especies</span></div>
+        <div class="dato"><strong>Uso</strong><span>Ornamental</span></div>
+      </aside>
+    </main>
+
+    <nav class="volver-contenedor" aria-label="Navegación">
+      <p>Continúa descubriendo las diferentes especies de flores.</p>
+      <a class="volver" href="flores.html">Volver al catálogo</a>
+    </nav>
+
+    <footer>
+      © 2026 Matías Valarezo · Institución Educativa Benito Juárez · 3.º de Bachillerato
+    </footer>
+  </div>
+</body>
+</html>

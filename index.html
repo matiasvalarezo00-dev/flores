@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fbf7fb">
+  <title>Jardín en Flor</title>
+
+  <style>
+    :root {
+      --fondo: #fbf7fb;
+      --blanco: #fffefe;
+      --texto: #44334a;
+      --morado: #87649b;
+      --morado-oscuro: #704d83;
+      --rosa: #f6e5ee;
+      --lila: #f0e8f5;
+      --borde: #eaddeb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 22px;
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    .pagina {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+    }
+
+    .encabezado {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-height: 112px;
+      margin-bottom: 24px;
+      padding: 18px 22px;
+      border: 1px solid var(--borde);
+      background: linear-gradient(110deg, var(--lila), var(--rosa));
+    }
+
+    .encabezado img {
+      display: block;
+      width: 76px;
+      height: 76px;
+      flex: 0 0 76px;
+      border: 1px solid #dfcbe4;
+      background: var(--blanco);
+      object-fit: cover;
+    }
+
+    .encabezado h1 {
+      margin: 0;
+      color: var(--morado-oscuro);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 500;
+    }
+
+    .herramientas {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding: 14px;
+      border: 1px solid var(--borde);
+      background: var(--blanco);
+    }
+
+    .herramientas input {
+      width: 100%;
+      min-width: 0;
+      min-height: 46px;
+      flex: 1;
+      padding: 10px 13px;
+      border: 1px solid #d8c4df;
+      border-radius: 3px;
+      outline: none;
+      background: #fffafd;
+      color: var(--texto);
+      font: inherit;
+    }
+
+    .herramientas input:focus {
+      border-color: var(--morado);
+    }
+
+    .herramientas button {
+      min-height: 46px;
+      padding: 9px 16px;
+      border: 1px solid #d8bfdf;
+      border-radius: 3px;
+      background: var(--rosa);
+      color: #62415f;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .herramientas button:hover {
+      background: #efd9e7;
+    }
+
+    :focus-visible {
+      outline: 3px solid #d3b4df;
+      outline-offset: 2px;
+    }
+
+    .titulo-catalogo {
+      margin: 0 0 14px;
+      padding: 12px 15px;
+      border: 1px solid #decbe7;
+      background: var(--lila);
+      color: var(--morado-oscuro);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.45rem;
+      font-weight: 500;
+    }
+
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .flor {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid #e3cddd;
+      background: var(--blanco);
+      transition: border-color 0.18s, transform 0.18s;
+    }
+
+    .flor:hover {
+      border-color: #c9a9d5;
+      transform: translateY(-2px);
+    }
+
+    .flor-enlace {
+      display: block;
+      height: 100%;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .flor-imagen {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f0e8f5, #f6e5ee);
+    }
+
+    .flor-imagen img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.25s ease;
+    }
+
+    .flor:hover .flor-imagen img {
+      transform: scale(1.04);
+    }
+
+    .flor-imagen h2 {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: 0;
+      padding: 12px 14px;
+      border-top: 1px solid rgb(234 215 229 / 80%);
+      background: rgb(246 229 238 / 92%);
+      color: #70465f;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .sin-resultados {
+      display: none;
+      margin-top: 14px;
+      padding: 20px;
+      border: 1px solid #e3cddd;
+      background: var(--blanco);
+      color: #70465f;
+      text-align: center;
+    }
+
+    .sin-resultados.visible {
+      display: block;
+    }
+
+    footer {
+      margin-top: 24px;
+      padding: 15px;
+      border: 1px solid var(--borde);
+      background: linear-gradient(110deg, var(--lila), var(--rosa));
+      color: var(--morado-oscuro);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 16px;
+      }
+
+      .catalogo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .flor-imagen {
+        height: 185px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      body {
+        padding: 12px;
+      }
+
+      .encabezado {
+        min-height: 92px;
+        gap: 13px;
+        padding: 12px;
+      }
+
+      .encabezado img {
+        width: 62px;
+        height: 62px;
+        flex-basis: 62px;
+      }
+
+      .herramientas {
+        flex-direction: column;
+        padding: 11px;
+      }
+
+      .herramientas button {
+        width: 100%;
+      }
+
+      .catalogo {
+        gap: 9px;
+      }
+
+      .flor-imagen {
+        height: 155px;
+      }
+
+      .flor-imagen h2 {
+        padding: 10px;
+        font-size: 1.05rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pagina">
+    <header class="encabezado">
+      <img src="JARDIN.JPG" alt="">
+      <h1>Jardín en Flor</h1>
+    </header>
+
+    <main>
+      <section class="herramientas" aria-label="Buscar flores">
+        <input
+          type="search"
+          id="buscarFlor"
+          placeholder="Buscar una flor..."
+          aria-label="Buscar una flor por nombre"
+          autocomplete="off"
+        >
+        <button type="button" id="limpiar">Mostrar todas</button>
+      </section>
+
+      <section aria-labelledby="titulo-catalogo">
+        <h2 class="titulo-catalogo" id="titulo-catalogo">Tipos de flores</h2>
+
+        <div class="catalogo" id="catalogo">
+          <article class="flor" data-nombre="rosa">
+            <a class="flor-enlace" href="rosa.html" aria-label="Rosa">
+              <div class="flor-imagen">
+                <img src="rosa.jpg" alt="Rosa">
+                <h2>Rosa</h2>
+              </div>
+            </a>
+          </article>
+
+          <article class="flor" data-nombre="clavel">
+            <a class="flor-enlace" href="clavel.html" aria-label="Clavel">
+              <div class="flor-imagen">
+                <img src="clavel.jpg" alt="Clavel">
+                <h2>Clavel</h2>
+              </div>
+            </a>
+          </article>
+
+          <article class="flor" data-nombre="petunia">
+            <a class="flor-enlace" href="petunia.html" aria-label="Petunia">
+              <div class="flor-imagen">
+                <img src="petunia.jpg" alt="Petunia">
+                <h2>Petunia</h2>
+              </div>
+            </a>
+          </article>
+
+          <article class="flor" data-nombre="jacinto">
+            <a class="flor-enlace" href="jacinto.html" aria-label="Jacinto">
+              <div class="flor-imagen">
+                <img src="jacinto.jpg" alt="Jacinto">
+                <h2>Jacinto</h2>
+              </div>
+            </a>
+          </article>
+
+          <article class="flor" data-nombre="geranio">
+            <a class="flor-enlace" href="geranio.html" aria-label="Geranio">
+              <div class="flor-imagen">
+                <img src="geranio.jpg" alt="Geranio">
+                <h2>Geranio</h2>
+              </div>
+            </a>
+          </article>
+
+          <article class="flor" data-nombre="margarita">
+            <a class="flor-enlace" href="margarita.html" aria-label="Margarita">
+              <div class="flor-imagen">
+                <img src="MARGARITAS.jpg" alt="Margarita">
+                <h2>Margarita</h2>
+              </div>
+            </a>
+          </article>
+
+          <article class="flor" data-nombre="gladiolo">
+            <a class="flor-enlace" href="gladiolo.html" aria-label="Gladiolo">
+              <div class="flor-imagen">
+                <img src="GLANDIOLO.jpg" alt="Gladiolo">
+                <h2>Gladiolo</h2>
+              </div>
+            </a>
+          </article>
+
+          <article class="flor" data-nombre="orquidea">
+            <a class="flor-enlace" href="orquidea.html" aria-label="Orquídea">
+              <div class="flor-imagen">
+                <img src="orquidea.jpg" alt="Orquídea">
+                <h2>Orquídea</h2>
+              </div>
+            </a>
+          </article>
+
+          <article class="flor" data-nombre="tulipan">
+            <a class="flor-enlace" href="tulipan.html" aria-label="Tulipán">
+              <div class="flor-imagen">
+                <img src="tulipan.jpg" alt="Tulipán">
+                <h2>Tulipán</h2>
+              </div>
+            </a>
+          </article>
+        </div>
+
+        <div class="sin-resultados" id="sinResultados" role="status" aria-live="polite">
+          No se encontró esa flor. Comprueba el nombre e inténtalo nuevamente.
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © 2026 Matías Valarezo · Institución Educativa Benito Juárez · 3.º de Bachillerato
+    </footer>
+  </div>
+
+  <script>
+    const entrada = document.getElementById("buscarFlor");
+    const flores = [...document.querySelectorAll(".flor")];
+    const botonLimpiar = document.getElementById("limpiar");
+    const mensaje = document.getElementById("sinResultados");
+
+    function normalizar(texto) {
+      return texto
+        .toLocaleLowerCase("es")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
+
+    function buscar() {
+      const consulta = normalizar(entrada.value);
+      let cantidad = 0;
+
+      flores.forEach((flor) => {
+        const coincide = normalizar(flor.dataset.nombre).includes(consulta);
+        flor.hidden = !coincide;
+        if (coincide) cantidad++;
+      });
+
+      mensaje.classList.toggle("visible", cantidad === 0);
+    }
+
+    entrada.addEventListener("input", buscar);
+
+    botonLimpiar.addEventListener("click", () => {
+      entrada.value = "";
+      buscar();
+      entrada.focus();
+    });
+  </script>
+</body>
+</html>
